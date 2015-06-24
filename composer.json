@@ -1,0 +1,15 @@
+{
+    "name": "apricoton/gmail_cleaner",
+    "authors": [
+        {
+            "name": "apricoton",
+            "email": "apricoton.jp@gmail.com"
+        }
+    ],
+    "require": {
+        "google/apiclient": "1.0.*@beta"
+    },
+    "autoload": {
+        "psr-4": {"": "lib/"}
+    }
+}
