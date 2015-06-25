@@ -24,3 +24,8 @@
 php delete.php あなたのメールアドレス 検索クエリ（Gmail 検索形式 スペース区切り）
 ```
 * 初回のみ認証URLが出力されるのでアクセスし、認証コードを取得＆コピーして端末にペーストする
+### サンプル
+```bash
+php delete.php me "Cron Daemon" before:2014/12/31
+```
+
