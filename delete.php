@@ -106,31 +106,7 @@ if ($ask == 'd') {
         $i++;
     }
 }
-foreach ($messages as $message) {
-    if ($ask == 'd') {
-        // Dry Run
-        $message_params = [
-            'format' => 'minimal',
-        ];
-        try {
-            $data = $gmail->users_messages->get($target_email, $message->getId(), $message_params);
-            u::pl('Delete(Dry run) : '. $data->getId() . ' : ' . $data->getSnippet());
-        } catch (Exception $e) {
-            u::pl($e->getMessage());
-        }
-    } else {
-        // Delete
-        try {
-            $gmail->users_messages->delete($target_email, $message->getId());
-            u::pl('Delete : '. $message->getId());
-        } catch (Exception $e) {
-            u::pl($e->getMessage());
-        }
-    }
-}
 exit;
-
-
 
 
 function print_usage()
