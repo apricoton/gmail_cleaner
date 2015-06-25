@@ -17,7 +17,7 @@
         php composer.phar update
 1. 実行する
 
-        php delete.php 検索する文字列 あなたのメールアドレス
+        php delete.php あなたのメールアドレス 検索クエリ（Gmail 検索形式 スペース区切り）
     * 初回のみ認証URLが出力されるのでアクセスし、認証コードを取得＆コピーして端末にペーストする
 
 ## 注意
