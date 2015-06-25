@@ -41,7 +41,7 @@ $client = getClient();
 $gmail = new Google_Service_Gmail($client);
 
 $page_token = null;
-$messages = array();
+$threads = array();
 $pagenum = 1;
 do {
     try {
@@ -50,24 +50,24 @@ do {
             $params['pageToken'] = $page_token;
         }
         
-        $result = $gmail->users_messages->listUsersMessages($target_email, $params);
-        if ($result->getMessages()) {
-            $messages = array_merge($messages, $result->getMessages());
+        $result = $gmail->users_threads->listUsersThreads($target_email, $params);
+        if ($result->getThreads()) {
+            $threads = array_merge($threads, $result->getThreads());
             $page_token = $result->getNextPageToken();
         }
-        u::pl(count($messages) . ' mails');
+        u::pl(count($threads) . ' threads');
         $pagenum++;
     } catch (Exception $e) {
         u::pl($e->getMessage());
     }
 } while ($page_token);
 
-if (!count($messages)) {
-    u::pl('0 mail found.');
+if (!count($threads)) {
+    u::pl('0 threads found.');
     exit;
 }
 
-u::pl('Delete ' . count($messages) . ' mails?');
+u::pl('Delete ' . count($threads) . ' threads?');
 u::pl('y: Yes delete');
 u::pl('d: Dry run');
 u::pl('N: exit');
@@ -79,27 +79,24 @@ if ($ask != 'y' && $ask != 'd') {
 }
 
 $i = 1;
-$total = count($messages);
+$total = count($threads);
 if ($ask == 'd') {
-    foreach ($messages as $message) {
+    foreach ($threads as $thread) {
         // Dry Run
-        $message_params = [
-            'format' => 'minimal',
-        ];
         try {
-            $data = $gmail->users_messages->get($target_email, $message->getId(), $message_params);
-            u::pl('(' . $i . '/' . $total . ') Delete(Dry run) : '. $data->getId() . ' : ' . $data->getSnippet());
+            $data = $gmail->users_threads->get($target_email, $thread->getId());
+            u::pl('(' . $i . '/' . $total . ') Delete(Dry run) : '. $data->getId());
         } catch (Exception $e) {
             u::pl($e->getMessage());
         }
         $i++;
     }
 } else {
-    foreach ($messages as $message) {
+    foreach ($threads as $thread) {
         // Delete
         try {
-            $gmail->users_messages->delete($target_email, $message->getId());
-            u::pl('(' . $i . '/' . $total . ') Delete : '. $message->getId());
+            $gmail->users_threads->delete($target_email, $thread->getId());
+            u::pl('(' . $i . '/' . $total . ') Delete : '. $thread->getId());
         } catch (Exception $e) {
             u::pl($e->getMessage());
         }
