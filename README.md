@@ -8,7 +8,7 @@
 1. 本リポジトリをclone
 
         git clone https://github.com/apricoton/gmail_cleaner.git
-1. https://console.developers.google.com/ にアクセスし既存のプロジェクトもしくは新規でプロジェクトを作成
+1. https://console.developers.google.com/ にアクセスし既存のプロジェクトを選択、または新規でプロジェクトを作成
 1. 「API と認証」から、「API」を選択し、Gmail APIを有効化 (gmailと検索すれば出てきます)
 1. 「API と認証」から、「同意画面」を選択し、サービス名を適当につける
 1. 「API と認証」から、「認証情報」を選択し
